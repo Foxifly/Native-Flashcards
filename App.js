@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import TabNav from "./components/TabNav";
 import { Constants } from "expo";
-import {darkBlue} from "./utils/colors"
+import {blue} from "./utils/colors"
 
 
 function StatusBar({ backgroundColor, ...props }) {
