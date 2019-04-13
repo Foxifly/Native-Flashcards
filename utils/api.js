@@ -1,20 +1,26 @@
 import { AsyncStorage } from 'react-native'
-import {DECK_STORAGE_KEY, formatDeck} from "./_decks"
+import {DECK_STORAGE_KEY, setDecks} from "./_decks"
 
 
 
-function getDecks() {
-  return AsyncStorage.getItem(DECK_STORAGE_KEY)
-  .then(formatDeck)
+export function getDecks() {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY).then(results => {
+   const data = JSON.parse(results);
+   return data === null ? setDecks() : data;
+
+ });
 }
+
+export function saveDeck(title) {
+
+}
+
 
 function getDeck(id) {
 
 }
 
-function saveDeckTitle(title) {
 
-}
 
 function addCardToDeck(title, card) {
 

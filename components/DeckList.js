@@ -12,14 +12,12 @@ class DeckList extends Component {
 state = {
   text: ""
 }
-  /*componentDidMount ()  {
+  componentDidMount ()  {
     const {dispatch} = this.props;
     getDecks()
     .then((decks) => dispatch(receiveDecks(decks)))
-  }*/
-  hello = () => {
-    console.log("HI!")
   }
+
   render() {
     console.log(Object.keys(deckData));
 
