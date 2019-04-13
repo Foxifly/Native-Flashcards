@@ -9,11 +9,16 @@ import {connect} from 'react-redux';
 
 
 class DeckList extends Component {
-
-  componentDidMount ()  {
+state = {
+  text: ""
+}
+  /*componentDidMount ()  {
     const {dispatch} = this.props;
     getDecks()
     .then((decks) => dispatch(receiveDecks(decks)))
+  }*/
+  hello = () => {
+    console.log("HI!")
   }
   render() {
     console.log(Object.keys(deckData));
@@ -74,10 +79,5 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(decks) {
-    return {
-        decks
-    }
-}
 
-export default connect(mapStateToProps)(DeckList);
+export default connect()(DeckList);

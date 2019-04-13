@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import StackNav from "./components/TabNav";
+import StackNav from "./components/StackNav";
 import { Constants } from "expo";
 import { blue } from "./utils/colors";
 import { createStore } from "redux";
