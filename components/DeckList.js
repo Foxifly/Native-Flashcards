@@ -1,15 +1,25 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { decks } from "../utils/api";
+import { deckData } from "../utils/_decks";
+import {getDecks} from "../utils/api"
 import { blue, white, darkBlue } from "../utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
+import {receiveDecks} from "../actions";
+import {connect} from 'react-redux';
+
 
 class DeckList extends Component {
+
+  componentDidMount ()  {
+    const {dispatch} = this.props;
+    getDecks()
+    .then((decks) => dispatch(receiveDecks(decks)))
+  }
   render() {
-    console.log(Object.keys(decks));
+    console.log(Object.keys(deckData));
 
 
-    if (Object.keys(decks).length === 0) {
+    if (Object.keys(deckData).length === 0) {
       return (
         <View style={styles.container}>
           <Text style={styles.noDecks}>You have not created any decks, yet!</Text>
@@ -64,4 +74,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckList;
+function mapStateToProps(decks) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(DeckList);

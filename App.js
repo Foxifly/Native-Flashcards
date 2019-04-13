@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import TabNav from "./components/TabNav";
+import StackNav from "./components/TabNav";
 import { Constants } from "expo";
-import {blue} from "./utils/colors"
-
+import { blue } from "./utils/colors";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./reducers";
 
 function StatusBar({ backgroundColor, ...props }) {
   return (
@@ -16,9 +18,11 @@ function StatusBar({ backgroundColor, ...props }) {
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <TabNav />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{ flex: 1 }}>
+          <StackNav />
+        </View>
+      </Provider>
     );
   }
 }
