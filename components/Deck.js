@@ -27,7 +27,7 @@ const styles= StyleSheet.create({
     borderRadius: 10
   },
   cardDash: {
-    marginTop: 25
+    marginBottom: 30
   },
   cardText: {
     textAlign:"center",

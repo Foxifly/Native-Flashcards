@@ -27,7 +27,7 @@ class DeckList extends Component {
     if (Object.keys(decks).length === 0) {
       return (
         <View style={styles.container}>
-          <Text style={styles.noDecks}>
+          <Text style={styles.titleText}>
             You have not created any decks, yet!
           </Text>
           <TouchableOpacity
@@ -51,7 +51,7 @@ class DeckList extends Component {
     return (
       <ScrollView>
         <View style={styles.cardContainer}>
-          <Text style={styles.noDecks}>Select a deck to start studying.</Text>
+          <Text style={styles.titleText}>Select a deck to start studying.</Text>
 
           {Object.keys(decks).map(deck => {
             const currDeck = decks[deck];
@@ -91,11 +91,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "center"
   },
-  noDecks: {
+  titleText: {
     fontSize: 20,
-    width: 250,
+    width: 300,
     marginBottom: 50,
-    marginTop: 50,
+    marginTop: 100,
     textAlign: "center"
   },
   cardContainer: {
