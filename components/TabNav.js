@@ -9,6 +9,7 @@ import DeckList from "./DeckList";
 import { Platform } from "react-native";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import {white, darkBlue, lightBlue} from "../utils/colors"
+import AddQuestion from "./AddQuestion"
 
 const router = {
   DeckList: {
@@ -29,6 +30,16 @@ const router = {
     screen: AddDeck,
     navigationOptions: {
       tabBarLabel: "Add Deck",
+      tabBarIcon: ({ tintColor }) =>
+        Platform.OS === "ios" && (
+          <Entypo name="squared-plus" size={30} color={tintColor} />
+        )
+    }
+  },
+  AddQuestion: {
+    screen: AddQuestion,
+    navigationOptions: {
+      tabBarLabel: "Add Question",
       tabBarIcon: ({ tintColor }) =>
         Platform.OS === "ios" && (
           <Entypo name="squared-plus" size={30} color={tintColor} />
