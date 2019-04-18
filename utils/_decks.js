@@ -28,6 +28,5 @@ export const deckData = {
 
 export function setDecks() {
   AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(deckData))
-  console.log(deckData)
-  return deckData;
+  return JSON.stringify(deckData);
 }
