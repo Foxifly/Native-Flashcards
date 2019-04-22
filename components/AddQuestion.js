@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { blue, white, darkBlue } from "../utils/colors";
+import Buttons from "./Buttons"
 
 class AddQuestion extends Component {
   state = {
@@ -72,9 +73,11 @@ class AddQuestion extends Component {
           {isABlank === true ? "This field is required" : ""}
         </Text>
 
-        <TouchableOpacity style={styles.submitButton} onPress={this.submitDeck}>
-          <Text style={styles.submitText}>Submit</Text>
-        </TouchableOpacity>
+
+        <Buttons onPress={this.submitDeck}>
+          Submit
+        </Buttons>
+
       </View>
     );
   }
@@ -95,20 +98,6 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     paddingLeft: 10
-  },
-  submitButton: {
-    backgroundColor: blue,
-    marginTop: 50,
-    width: 100,
-    height: 40,
-    borderRadius: 5,
-    justifyContent: "center"
-  },
-  submitText: {
-    textAlign: "center",
-    color: white,
-    textTransform: "uppercase",
-    fontWeight: "bold"
   },
   titleText: {
     fontSize: 20,

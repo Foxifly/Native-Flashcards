@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { blue, white, darkBlue } from "../utils/colors";
+import Buttons from "./Buttons";
 
 class AddDeck extends Component {
   state = {
@@ -32,22 +33,23 @@ class AddDeck extends Component {
     //navigate to route
   };
   render() {
-    const {isSubmit} = this.state
+    const { isSubmit } = this.state;
 
     return (
       <View style={styles.container}>
-      <Text style={styles.titleText}>Add a new deck to study.</Text>
+        <Text style={styles.titleText}>Add a new deck to study.</Text>
         <TextInput
           maxLength={30}
           onChange={text => this.handleChange(text)}
           style={styles.input}
         />
 
-      <Text style={styles.error}>  {isSubmit === false ? "This field is required" : ""}</Text>
+        <Text style={styles.error}>
+          {" "}
+          {isSubmit === false ? "This field is required" : ""}
+        </Text>
 
-        <TouchableOpacity style={styles.submitButton} onPress={this.submitDeck}>
-          <Text style={styles.submitText}>Submit</Text>
-        </TouchableOpacity>
+        <Buttons onPress={this.submitDeck}>Submit</Buttons>
       </View>
     );
   }
@@ -55,9 +57,9 @@ class AddDeck extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    justifyContent:"center",
-    alignItems:"center",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     alignSelf: "center"
   },
   input: {
@@ -68,20 +70,6 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     paddingLeft: 10
-  },
-  submitButton: {
-    backgroundColor: blue,
-    marginTop:50,
-    width: 100,
-    height: 40,
-    borderRadius: 5,
-    justifyContent: "center"
-  },
-  submitText: {
-    textAlign: "center",
-    color: white,
-    textTransform: "uppercase",
-    fontWeight: "bold"
   },
   titleText: {
     fontSize: 20,

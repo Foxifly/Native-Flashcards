@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Buttons from "./Buttons";
 
 class DeckZoom extends Component {
   render() {
@@ -11,20 +12,20 @@ class DeckZoom extends Component {
           {questionLength} {questionLength === 1 ? "Card" : "Cards"}
         </Text>
 
-
-        <TouchableOpacity
-        onPress={() => this.props.navigation.navigate(
-          'AddQuestion',
-          { deck, questionLength  }
-        )}
+        <Buttons
+          onPress={() =>
+            this.props.navigation.navigate("AddQuestion", {
+              deck,
+              questionLength
+            })
+          }
         >
-          <Text>Add Question</Text>
-        </TouchableOpacity>
+          Add Question
+        </Buttons>
 
-
-        <TouchableOpacity>
-          <Text>Start Quiz</Text>
-        </TouchableOpacity>
+        <Buttons onPress={() => this.props.navigation.navigate("")}>
+          Start Quiz
+        </Buttons>
       </View>
     );
   }
