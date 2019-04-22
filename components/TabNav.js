@@ -36,16 +36,6 @@ const router = {
         )
     }
   },
-  AddQuestion: {
-    screen: AddQuestion,
-    navigationOptions: {
-      tabBarLabel: "Add Question",
-      tabBarIcon: ({ tintColor }) =>
-        Platform.OS === "ios" && (
-          <Entypo name="squared-plus" size={30} color={tintColor} />
-        )
-    }
-  }
 };
 
 const navigationOptions = {

@@ -24,6 +24,7 @@ class DeckList extends Component {
 
   render() {
     const decks = getDecksTEMP();
+    console.log(this.props)
     if (Object.keys(decks).length === 0) {
       return (
         <View style={styles.container}>
@@ -65,6 +66,7 @@ class DeckList extends Component {
                 questions={questions}
                 questionLength={questionLength}
                 deck={currDeck}
+                {...this.props}
               />
             );
           })}

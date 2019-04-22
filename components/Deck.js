@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import { blue, lightBlue} from "../utils/colors"
+import { blue, lightBlue} from "../utils/colors";
+import {connect} from 'react-redux'
 
 class Deck extends Component {
   render() {
     const {title, questions, questionLength, deck} = this.props
     return (
       <View style={styles.cardDash}>
-        <TouchableOpacity style={styles.availableDecks}>
+        <TouchableOpacity
+        onPress={() => this.props.navigation.navigate(
+          'DeckZoom',
+          { deck, questionLength  }
+        )}
+         style={styles.availableDecks}>
           <Text style={styles.topText}>{title}</Text>
           <Text style={styles.cardText}>{questionLength} {questionLength === 1 ? "Card" : "Cards"}</Text>
         </TouchableOpacity>
@@ -43,4 +49,4 @@ const styles= StyleSheet.create({
   }
 })
 
-export default Deck;
+export default connect()(Deck);
