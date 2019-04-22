@@ -114,11 +114,12 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  console.log("DECKS", state)
+const mapStateToProps = (state) => {
+  console.log(state)
   return {
-hi:  "hi"
-  };
+    text:"test"
+  }
 }
+
 
 export default connect(mapStateToProps)(DeckList);

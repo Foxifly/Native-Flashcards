@@ -9,7 +9,7 @@ import {
 import { connect } from "react-redux";
 import { blue, white, darkBlue } from "../utils/colors";
 import Buttons from "./Buttons";
-import {saveDeck} from "../utils/api";
+import {saveDeck, generateID} from "../utils/api";
 import { addDeck } from '../actions'
 
 
@@ -29,11 +29,12 @@ class AddDeck extends Component {
       this.setState({ isSubmit: false });
     } else {
       this.setState({ isSubmit: true });
-      const newDeck = {title: this.state.text, questions: []}
+      const id = generateID();
+      const newDeck = {id, title: this.state.text, questions: []}
 
       this.props.dispatch(addDeck(newDeck));
 
-      saveDeck(this.state.text)
+      saveDeck(newDeck)
     }
 
 

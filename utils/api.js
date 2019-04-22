@@ -4,71 +4,28 @@ export const DECK_STORAGE_KEY = "MobileFlashcards:decks";
 
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(results => {
+    console.log("results", JSON.parse(results))
     return JSON.parse(results);
   });
 }
 
-export function getDecksTEMP() {
-  return {
-    React: {
-      title: "React",
-      questions: [
-        {
-          question: "What is React?",
-          answer: "A library for managing user interfaces"
-        },
-        {
-          question: "Where do you make Ajax requests in React?",
-          answer: "The componentDidMount lifecycle event"
-        }
-      ]
-    },
-    JavaScript: {
-      title: "JavaScript",
-      questions: [
-        {
-          question: "What is a closure?",
-          answer:
-            "The combination of a function and the lexical environment within which that function was declared."
-        }
-      ]
-    },
-    Testing: {
-      title: "Testing",
-      questions: [
-        {
-          question: "What is React?",
-          answer: "A library for managing user interfaces"
-        },
-        {
-          question: "Where do you make Ajax requests in React?",
-          answer: "The componentDidMount lifecycle event"
-        }
-      ]
-    },
-    InsertLongTitle: {
-      title: "Long Title Here hahah Get rekt",
-      questions: [
-        {
-          question: "What is a closure?",
-          answer:
-            "The combination of a function and the lexical environment within which that function was declared."
-        }
-      ]
-    }
-  };
+export function generateID() {
+  return (
+    Math.random()
+      .toString(36)
+      .substring(2, 15) +
+    Math.random()
+      .toString(36)
+      .substring(2, 15)
+  );
 }
 
-export function saveDeck(title) {
-  const deck = {
-    title: title,
-    questions: []
-  };
-
+export function saveDeck(deck) {
+console.log(deck)
   AsyncStorage.mergeItem(
     DECK_STORAGE_KEY,
     JSON.stringify({
-      [title]: deck
+      [deck.id]: deck
     })
   );
 }
