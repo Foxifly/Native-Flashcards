@@ -46,12 +46,13 @@ class AddQuestion extends Component {
     //navigate to route
   };
   render() {
+      const { deck, questionLength } = this.props.navigation.state.params;
     const { isSubmit, isABlank, isQBlank } = this.state;
 
     return (
       <View style={styles.container}>
         <Text style={styles.titleText}>
-          Add a new question to {"DECKNAME HERE"}
+          Add a new question to your {deck.title} deck:
         </Text>
         <TextInput
           maxLength={75}

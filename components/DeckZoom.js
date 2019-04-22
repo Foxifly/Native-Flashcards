@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Buttons from "./Buttons";
+import { blue, white, darkBlue } from "../utils/colors";
 
 class DeckZoom extends Component {
   render() {
     const { deck, questionLength } = this.props.navigation.state.params;
     return (
-      <View>
-        <Text>{deck.title}</Text>
-        <Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>{deck.title}</Text>
+        <Text style={styles.subTitle}>
           {questionLength} {questionLength === 1 ? "Card" : "Cards"}
         </Text>
 
@@ -30,5 +31,23 @@ class DeckZoom extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 10,
+    flex:1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  title: {
+    fontSize: 42,
+    color: darkBlue ,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  subTitle: {
+    fontSize: 20
+  }
+})
 
 export default DeckZoom;

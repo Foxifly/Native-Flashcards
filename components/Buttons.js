@@ -16,15 +16,17 @@ const styles = StyleSheet.create({
   submitButton: {
     backgroundColor: blue,
     marginTop: 25,
-    width: 125,
+    width: 150,
     height: 40,
     borderRadius: 5,
-    justifyContent: "center"
+    justifyContent: "center",
+    padding: 10
   },
   submitText: {
     textAlign: "center",
     color: white,
     textTransform: "uppercase",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontSize: 16
   }
 });

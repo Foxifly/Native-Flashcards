@@ -24,7 +24,6 @@ class DeckList extends Component {
 
   render() {
     const decks = getDecksTEMP();
-    console.log(this.props)
     if (Object.keys(decks).length === 0) {
       return (
         <View style={styles.container}>
@@ -108,7 +107,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(decks) {
-  console.log(decks);
   return {
     decks
   };
