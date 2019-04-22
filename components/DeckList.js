@@ -7,7 +7,7 @@ import {
   ScrollView
 } from "react-native";
 import { deckData } from "../utils/_decks";
-import { getDecksTEMP } from "../utils/api";
+import { getDecks } from "../utils/api";
 import { blue, white, darkBlue } from "../utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { receiveDecks } from "../actions";
@@ -18,12 +18,18 @@ class DeckList extends Component {
   state = {
     text: ""
   };
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
+    try {
+     getDecks()
+       .then((decks) => dispatch(receiveDecks(decks)))
+   } catch(error) {
+     alert(JSON.stringify(error))
+   }
   }
 
   render() {
-    const decks = getDecksTEMP();
+    const decks = this.props.decks || {}
     if (Object.keys(decks).length === 0) {
       return (
         <View style={styles.container}>
@@ -46,32 +52,34 @@ class DeckList extends Component {
           </TouchableOpacity>
         </View>
       );
+    } else {
+      return (
+        <ScrollView>
+          <View style={styles.cardContainer}>
+            <Text style={styles.titleText}>Select a deck to start studying.</Text>
+
+            {Object.keys(decks).map(deck => {
+              const currDeck = decks[deck];
+              const questions = currDeck.questions;
+              const questionLength = questions ? currDeck.questions.length : 0;
+
+              return (
+                <Deck
+                  key={currDeck.title}
+                  title={currDeck.title}
+                  questions={questions}
+                  questionLength={questionLength}
+                  deck={currDeck}
+                  {...this.props}
+                />
+              );
+            })}
+          </View>
+        </ScrollView>
+      );
     }
 
-    return (
-      <ScrollView>
-        <View style={styles.cardContainer}>
-          <Text style={styles.titleText}>Select a deck to start studying.</Text>
 
-          {Object.keys(decks).map(deck => {
-            const currDeck = decks[deck];
-            const questions = currDeck.questions;
-            const questionLength = questions ? currDeck.questions.length : 0;
-
-            return (
-              <Deck
-                key={currDeck.title}
-                title={currDeck.title}
-                questions={questions}
-                questionLength={questionLength}
-                deck={currDeck}
-                {...this.props}
-              />
-            );
-          })}
-        </View>
-      </ScrollView>
-    );
   }
 }
 
@@ -106,9 +114,10 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(decks) {
+function mapStateToProps(state) {
+  console.log("DECKS", state)
   return {
-    decks
+hi:  "hi"
   };
 }
 
