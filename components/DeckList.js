@@ -20,12 +20,9 @@ class DeckList extends Component {
   };
   componentDidMount() {
     const { dispatch } = this.props;
-    try {
+
      getDecks()
-       .then((decks) => dispatch(receiveDecks(decks)))
-   } catch(error) {
-     alert(JSON.stringify(error))
-   }
+       .then((decks) => dispatch((receiveDecks(decks))))
   }
 
   render() {
@@ -117,7 +114,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    text:"test"
+    decks: state
   }
 }
 
