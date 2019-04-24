@@ -16,7 +16,8 @@ import { NavigationActions } from "react-navigation";
 class AddDeck extends Component {
   state = {
     text: "",
-    isSubmit: ""
+    isSubmit: "",
+    deck: {}
   };
   handleChange = text => {
     this.setState({
@@ -31,23 +32,26 @@ class AddDeck extends Component {
       this.setState({ isSubmit: true });
       const id = generateID();
       const newDeck = { id, title: this.state.text, questions: [] };
+      this.setState({deck: newDeck}, this.toHome(newDeck))
 
       this.props.dispatch(addDeck(newDeck));
 
       saveDeck(newDeck);
-      this.toHome();
 
       this.setState({ text: "" });
       this.textInput.clear();
     }
   };
 
-  toHome = () => {
-    const { text } = this.state;
+  toHome = (deck) => {
+    const { text} = this.state;
+    const questions = deck.questions;
+    const questionLength = questions ? deck.questions.length : 0;
+
     this.props.navigation.dispatch(
       NavigationActions.navigate({
         routeName: "DeckZoom",
-        params: { text, questionLength: 0 }
+        params: { deck, questionLength }
       })
     );
   };
