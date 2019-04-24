@@ -62,7 +62,7 @@ class DeckList extends Component {
 
               return (
                 <Deck
-                  key={currDeck.title}
+                  key={currDeck.id}
                   title={currDeck.title}
                   questions={questions}
                   questionLength={questionLength}

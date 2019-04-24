@@ -9,9 +9,9 @@ import {
 import { connect } from "react-redux";
 import { blue, white, darkBlue } from "../utils/colors";
 import Buttons from "./Buttons";
-import {saveDeck, generateID} from "../utils/api";
-import { addDeck } from '../actions'
-
+import { saveDeck, generateID } from "../utils/api";
+import { addDeck } from "../actions";
+import { NavigationActions } from "react-navigation";
 
 class AddDeck extends Component {
   state = {
@@ -30,20 +30,28 @@ class AddDeck extends Component {
     } else {
       this.setState({ isSubmit: true });
       const id = generateID();
-      const newDeck = {id, title: this.state.text, questions: []}
+      const newDeck = { id, title: this.state.text, questions: [] };
 
       this.props.dispatch(addDeck(newDeck));
 
-      saveDeck(newDeck)
+      saveDeck(newDeck);
+      this.toHome();
+
+      this.setState({ text: "" });
+      this.textInput.clear();
     }
-
-
-
-
-    //dispatch add deck
-
-    //navigate to route
   };
+
+  toHome = () => {
+    const { text } = this.state;
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({
+        routeName: "DeckZoom",
+        params: { text, questionLength: 0 }
+      })
+    );
+  };
+
   render() {
     const { isSubmit } = this.state;
 
@@ -51,13 +59,15 @@ class AddDeck extends Component {
       <View style={styles.container}>
         <Text style={styles.titleText}>Add a new deck to study.</Text>
         <TextInput
+          ref={input => {
+            this.textInput = input;
+          }}
           maxLength={30}
           onChange={text => this.handleChange(text)}
           style={styles.input}
         />
 
         <Text style={styles.error}>
-          {" "}
           {isSubmit === false ? "This field is required" : ""}
         </Text>
 
