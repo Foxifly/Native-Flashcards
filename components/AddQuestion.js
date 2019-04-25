@@ -8,6 +8,10 @@ import {
 } from "react-native";
 import { blue, white, darkBlue } from "../utils/colors";
 import Buttons from "./Buttons"
+import {addQuestionToDeck} from "../actions";
+import {connect} from 'react-redux'
+import {addCardToDeck} from "../utils/api"
+import { NavigationActions } from 'react-navigation'
 
 class AddQuestion extends Component {
   state = {
@@ -41,46 +45,76 @@ class AddQuestion extends Component {
       ? this.setState({ isABlank: true })
       : this.setState({ isABlank: false });
 
-    //dispatch add deck
+    const {stateDeck, stateQuestionLength} = this.props
+    if (question && answer) {
+        this.props.dispatch(addQuestionToDeck(stateDeck.id, question, answer))
+        addCardToDeck(stateDeck, question, answer);
+
+        this.toHome(stateDeck)
+    }
+
 
     //navigate to route
   };
-  render() {
-      const { deck, questionLength } = this.props.navigation.state.params;
-    const { isSubmit, isABlank, isQBlank } = this.state;
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.titleText}>
-          Add a new question to your {deck.title} deck:
-        </Text>
-        <TextInput
-          maxLength={75}
-          onChange={text => this.handleQChange(text)}
-          style={styles.input}
-          placeholder="Question"
-        />
-        <Text style={styles.error}>
-          {isQBlank === true ? "This field is required" : ""}
-        </Text>
+  toHome = (deck) => {
+    const questions = deck.questions;
+    const questionLength = questions ? deck.questions.length : 0;
 
-        <TextInput
-          maxLength={75}
-          onChange={text => this.handleAChange(text)}
-          style={styles.input}
-          placeholder="Answer"
-        />
-        <Text style={styles.error}>
-          {isABlank === true ? "This field is required" : ""}
-        </Text>
-
-
-        <Buttons onPress={this.submitDeck}>
-          Submit
-        </Buttons>
-
-      </View>
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({
+        routeName: "DeckZoom",
+          params: { deck, questionLength }
+      })
     );
+
+
+
+  };
+
+  render() {
+      const { stateDeck, stateQuestionLength } = this.props;
+    const { isSubmit, isABlank, isQBlank } = this.state;
+    if (stateDeck) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.titleText}>
+            Add a new question to your {stateDeck.title} deck:
+          </Text>
+          <TextInput
+            maxLength={75}
+            onChange={text => this.handleQChange(text)}
+            style={styles.input}
+            placeholder="Question"
+          />
+          <Text style={styles.error}>
+            {isQBlank === true ? "This field is required" : ""}
+          </Text>
+
+          <TextInput
+            maxLength={75}
+            onChange={text => this.handleAChange(text)}
+            style={styles.input}
+            placeholder="Answer"
+          />
+          <Text style={styles.error}>
+            {isABlank === true ? "This field is required" : ""}
+          </Text>
+
+
+          <Buttons onPress={this.submitDeck}>
+            Submit
+          </Buttons>
+
+        </View>
+      );
+    }
+    return (
+      <View>
+      <Text>Boooo</Text>
+      </View>
+    )
+
   }
 }
 
@@ -112,4 +146,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddQuestion;
+function mapStateToProps(state, {navigation}) {
+  const { stateDeck, stateQuestionLength } = navigation.state.params;
+  return {
+    stateDeck,
+    stateQuestionLength
+  }
+
+}
+
+export default connect(mapStateToProps)(AddQuestion);

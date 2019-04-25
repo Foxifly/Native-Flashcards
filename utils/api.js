@@ -32,4 +32,24 @@ console.log(deck)
 
 function getDeck(id) {}
 
-function addCardToDeck(title, card) {}
+export function addCardToDeck(deck, question, answer) {
+
+  const card = {question, answer};
+  const deckID = deck.id;
+  const title = deck.title;
+
+  AsyncStorage.getItem(DECK_STORAGE_KEY).then((response) => {
+   const data = JSON.parse(response)
+   const questions = data[deckID].questions
+   questions.push(card)
+
+   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+     [deckID]: {
+       id: deckID,
+       title: title,
+       questions: questions
+     }
+   }))
+ })
+
+}

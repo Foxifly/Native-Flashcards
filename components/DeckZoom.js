@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Buttons from "./Buttons";
 import { blue, white, darkBlue } from "../utils/colors";
+import {connect} from 'react-redux'
 
 class DeckZoom extends Component {
   state = {
@@ -9,9 +10,8 @@ class DeckZoom extends Component {
   };
 
   startQuiz = () => {
-    const { questionLength } = this.props.navigation.state.params;
-    console.log(questionLength)
-    if (questionLength === 0) {
+    const { stateQuestionLength } = this.props;
+    if (stateQuestionLength === 0) {
       console.log("0")
       this.setState({ canStart: false });
     } else {
@@ -21,21 +21,21 @@ class DeckZoom extends Component {
     }
   };
   render() {
-    const { deck, questionLength, text } = this.props.navigation.state.params;
+    const { stateDeck, stateQuestionLength } = this.props
     const {canStart} = this.state;
-    if (deck) {
+    if (stateDeck) {
       return (
         <View style={styles.container}>
-          <Text style={styles.title}>{deck.title}</Text>
+          <Text style={styles.title}>{stateDeck.title}</Text>
           <Text style={styles.subTitle}>
-            {questionLength} {questionLength === 1 ? "Card" : "Cards"}
+            {stateQuestionLength} {stateQuestionLength === 1 ? "Card" : "Cards"}
           </Text>
 
           <Buttons
             onPress={() =>
               this.props.navigation.navigate("AddQuestion", {
-                deck,
-                questionLength
+                stateDeck,
+                stateQuestionLength
               })
             }
           >
@@ -85,4 +85,17 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckZoom;
+function mapStateToProps(state, {navigation}) {
+  const { deck, questionLength } = navigation.state.params;
+  const stateDeck = state[deck.id];
+  const questions = stateDeck.questions;
+  const stateQuestionLength = questions ? stateDeck.questions.length : 0;
+  console.log(stateDeck)
+
+  return {
+    stateDeck,
+    stateQuestionLength
+  }
+
+}
+export default connect(mapStateToProps)(DeckZoom);
