@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  KeyboardAvoidingView
 } from "react-native";
 import { blue, white, darkBlue } from "../utils/colors";
 import Buttons from "./Buttons";
@@ -73,7 +73,7 @@ class AddQuestion extends Component {
     const { isSubmit, isABlank, isQBlank } = this.state;
     if (stateDeck) {
       return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView  behavior="padding" style={styles.container}>
           <Text style={styles.titleText}>
             Add a new question to your {stateDeck.title} deck:
           </Text>
@@ -98,7 +98,7 @@ class AddQuestion extends Component {
           </Text>
 
           <Buttons onPress={this.submitDeck}>Submit</Buttons>
-        </View>
+        </KeyboardAvoidingView>
       );
     }
     return (

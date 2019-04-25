@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+   KeyboardAvoidingView
 } from "react-native";
 import { connect } from "react-redux";
 import { blue, white, darkBlue } from "../utils/colors";
@@ -60,7 +60,7 @@ class AddDeck extends Component {
     const { isSubmit } = this.state;
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView  behavior="padding" style={styles.container}>
         <Text style={styles.titleText}>Add a new deck to study.</Text>
         <TextInput
           ref={input => {
@@ -75,8 +75,9 @@ class AddDeck extends Component {
           {isSubmit === false ? "This field is required" : ""}
         </Text>
 
+
         <Buttons onPress={this.submitDeck}>Submit</Buttons>
-      </View>
+        </KeyboardAvoidingView>
     );
   }
 }
