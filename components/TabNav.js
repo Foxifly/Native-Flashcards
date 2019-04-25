@@ -8,8 +8,8 @@ import AddDeck from "./AddDeck";
 import DeckList from "./DeckList";
 import { Platform } from "react-native";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
-import {white, darkBlue, lightBlue} from "../utils/colors"
-import AddQuestion from "./AddQuestion"
+import { white, darkBlue, lightBlue } from "../utils/colors";
+import AddQuestion from "./AddQuestion";
 
 const router = {
   DeckList: {
@@ -35,18 +35,18 @@ const router = {
           <Entypo name="squared-plus" size={30} color={tintColor} />
         )
     }
-  },
+  }
 };
 
 const navigationOptions = {
   tabBarOptions: {
     showIcon: true,
-     activeTintColor: Platform.OS === 'ios' ? darkBlue : white,
+    activeTintColor: Platform.OS === "ios" ? darkBlue : white,
     style: {
       padding: 10,
       height: Platform.OS === "ios" ? 60 : "auto",
       fontSize: 18,
-        backgroundColor: Platform.OS === 'ios' ? white : darkBlue,
+      backgroundColor: Platform.OS === "ios" ? white : darkBlue,
       shadowColor: "rgba(0, 0, 0, 0.24)",
       shadowOffset: {
         width: 0,

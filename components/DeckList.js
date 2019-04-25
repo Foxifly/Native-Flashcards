@@ -21,12 +21,12 @@ class DeckList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-     getDecks()
-       .then((decks) => dispatch((receiveDecks(decks))))
+    getDecks().then(decks => dispatch(receiveDecks(decks)));
   }
 
   render() {
-    const decks = this.props.decks || {}
+    const decks = this.props.decks || {};
+    
     if (Object.keys(decks).length === 0) {
       return (
         <View style={styles.container}>
@@ -53,7 +53,9 @@ class DeckList extends Component {
       return (
         <ScrollView>
           <View style={styles.cardContainer}>
-            <Text style={styles.titleText}>Select a deck to start studying.</Text>
+            <Text style={styles.titleText}>
+              Select a deck to start studying.
+            </Text>
 
             {Object.keys(decks).map(deck => {
               const currDeck = decks[deck];
@@ -75,8 +77,6 @@ class DeckList extends Component {
         </ScrollView>
       );
     }
-
-
   }
 }
 
@@ -111,12 +111,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  console.log(state)
+const mapStateToProps = state => {
+  console.log(state);
   return {
     decks: state
-  }
-}
-
+  };
+};
 
 export default connect(mapStateToProps)(DeckList);

@@ -21,18 +21,22 @@ class AddQuestion extends Component {
     isABlank: "",
     isSubmit: ""
   };
+
   handleQChange = text => {
     this.setState({
       question: text.nativeEvent.text
     });
   };
+
   handleAChange = text => {
     this.setState({
       answer: text.nativeEvent.text
     });
   };
+
   submitDeck = () => {
     const { question, answer } = this.state;
+
     question && answer
       ? this.setState({ isSubmit: true })
       : this.setState({ isSubmit: false });
@@ -52,8 +56,6 @@ class AddQuestion extends Component {
 
       this.toHome(stateDeck);
     }
-
-    //navigate to route
   };
 
   toHome = deck => {
@@ -73,16 +75,18 @@ class AddQuestion extends Component {
     const { isSubmit, isABlank, isQBlank } = this.state;
     if (stateDeck) {
       return (
-        <KeyboardAvoidingView  behavior="padding" style={styles.container}>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <Text style={styles.titleText}>
             Add a new question to your {stateDeck.title} deck:
           </Text>
+
           <TextInput
             maxLength={75}
             onChange={text => this.handleQChange(text)}
             style={styles.input}
             placeholder="Question"
           />
+
           <Text style={styles.error}>
             {isQBlank === true ? "This field is required" : ""}
           </Text>
@@ -93,6 +97,7 @@ class AddQuestion extends Component {
             style={styles.input}
             placeholder="Answer"
           />
+
           <Text style={styles.error}>
             {isABlank === true ? "This field is required" : ""}
           </Text>

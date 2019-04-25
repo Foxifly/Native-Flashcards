@@ -5,9 +5,7 @@ import { blue, white, darkBlue } from "../utils/colors";
 export default function TextButton({ children, onPress, style = {} }) {
   return (
     <TouchableOpacity style={styles.submitButton} onPress={onPress}>
-      <Text style={styles.submitText}>
-        {children}
-      </Text>
+      <Text style={styles.submitText}>{children}</Text>
     </TouchableOpacity>
   );
 }

@@ -78,12 +78,11 @@ class Quiz extends Component {
       incorrect: 0,
       isComplete: false
     });
-
-  }
+  };
 
   exit = () => {
-    this.props.navigation.navigate("DeckList")
-  }
+    this.props.navigation.navigate("DeckList");
+  };
   render() {
     const { stateDeck } = this.props;
     const { isReady, isComplete } = this.state;
@@ -105,10 +104,10 @@ class Quiz extends Component {
 
           {showAnswer === false && (
             <View>
-            <Text style={styles.miniHeader}>Question</Text>
+              <Text style={styles.miniHeader}>Question</Text>
               <Text style={styles.QnAText}>{currentQuestion.question}</Text>
               <View style={styles.buttonContainer}>
-              <Buttons onPress={this.showAnswer}>Show Answer</Buttons>
+                <Buttons onPress={this.showAnswer}>Show Answer</Buttons>
               </View>
             </View>
           )}
@@ -125,17 +124,19 @@ class Quiz extends Component {
     }
 
     if (isComplete === true) {
-      const {
-        questionLength,
-        correct,
-        incorrect
-      } = this.state;
+      const { questionLength, correct, incorrect } = this.state;
       return (
         <View style={styles.container}>
           <Text style={styles.questionHeading}>Quiz Complete</Text>
           <Text style={styles.miniHeader}> Your Score </Text>
-          <Text style={styles.QnAText}> {correct} / {questionLength} </Text>
-          <Text style={styles.QnAText}> {Math.round((correct / questionLength)*100)}% </Text>
+          <Text style={styles.QnAText}>
+            {" "}
+            {correct} / {questionLength}{" "}
+          </Text>
+          <Text style={styles.QnAText}>
+            {" "}
+            {Math.round((correct / questionLength) * 100)}%{" "}
+          </Text>
           <Buttons onPress={this.tryAgain}>Try again</Buttons>
           <Buttons onPress={this.exit}>Exit Quiz</Buttons>
         </View>
@@ -155,15 +156,15 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   },
   buttonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   },
   questionHeading: {
-      fontSize: 20
+    fontSize: 20
   },
   miniHeader: {
     fontSize: 16,
