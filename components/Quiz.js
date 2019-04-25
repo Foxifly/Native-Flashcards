@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import { blue, white, darkBlue } from "../utils/colors";
 
 import Buttons from "./Buttons";
 
@@ -64,9 +65,29 @@ class Quiz extends Component {
     }));
     this.goToNext();
   };
+
+  tryAgain = () => {
+    const { stateDeck } = this.props;
+    const questions = stateDeck.questions;
+
+    this.setState({
+      currentQuestionIndex: 0,
+      currentQuestion: questions[0],
+      showAnswer: false,
+      correct: 0,
+      incorrect: 0,
+      isComplete: false
+    });
+
+  }
+
+  exit = () => {
+    this.props.navigation.navigate("DeckList")
+  }
   render() {
     const { stateDeck } = this.props;
     const { isReady, isComplete } = this.state;
+
     if (stateDeck && isReady && isComplete === false) {
       const {
         questionLength,
@@ -82,18 +103,18 @@ class Quiz extends Component {
             Question {currentQuestionIndex + 1} of {questionLength}
           </Text>
 
-          <Text>
-            correct {correct} : {incorrect}
-          </Text>
-
           {showAnswer === false && (
             <View>
+            <Text style={styles.miniHeader}>Question</Text>
               <Text style={styles.QnAText}>{currentQuestion.question}</Text>
+              <View style={styles.buttonContainer}>
               <Buttons onPress={this.showAnswer}>Show Answer</Buttons>
+              </View>
             </View>
           )}
           {showAnswer === true && (
             <View>
+              <Text style={styles.miniHeader}>Answer</Text>
               <Text style={styles.QnAText}>{currentQuestion.answer}</Text>
               <Buttons onPress={this.addCorrect}>Correct</Buttons>
               <Buttons onPress={this.addIncorrect}>Incorrect</Buttons>
@@ -104,9 +125,19 @@ class Quiz extends Component {
     }
 
     if (isComplete === true) {
+      const {
+        questionLength,
+        correct,
+        incorrect
+      } = this.state;
       return (
-        <View>
-          <Text>Quiz Complete</Text>
+        <View style={styles.container}>
+          <Text style={styles.questionHeading}>Quiz Complete</Text>
+          <Text style={styles.miniHeader}> Your Score </Text>
+          <Text style={styles.QnAText}> {correct} / {questionLength} </Text>
+          <Text style={styles.QnAText}> {Math.round((correct / questionLength)*100)}% </Text>
+          <Buttons onPress={this.tryAgain}>Try again</Buttons>
+          <Buttons onPress={this.exit}>Exit Quiz</Buttons>
         </View>
       );
     }
@@ -122,9 +153,31 @@ class Quiz extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  questionHeading: {},
-  QnAText: {}
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  questionHeading: {
+      fontSize: 20
+  },
+  miniHeader: {
+    fontSize: 16,
+    color: blue,
+    alignSelf: "center",
+    textAlign: "center",
+    marginTop: 15
+  },
+  QnAText: {
+    fontSize: 42,
+    color: darkBlue,
+    fontWeight: "bold",
+    textAlign: "center"
+  }
 });
 function mapStateToProps(state, { navigation }) {
   const { stateDeck } = navigation.state.params;
