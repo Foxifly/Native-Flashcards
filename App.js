@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
 import middleware from "./middleware";
+import {setLocalNotification} from "./utils/api"
 
 function StatusBar({ backgroundColor, ...props }) {
   return (
@@ -18,6 +19,9 @@ function StatusBar({ backgroundColor, ...props }) {
 
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={createStore(reducer, middleware)}>

@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-   KeyboardAvoidingView
+  KeyboardAvoidingView
 } from "react-native";
 import { connect } from "react-redux";
 import { blue, white, darkBlue } from "../utils/colors";
@@ -19,20 +19,24 @@ class AddDeck extends Component {
     isSubmit: "",
     deck: {}
   };
+
   handleChange = text => {
     this.setState({
       text: text.nativeEvent.text
     });
   };
+
   submitDeck = () => {
     const { text } = this.state;
+
     if (!text) {
       this.setState({ isSubmit: false });
     } else {
       this.setState({ isSubmit: true });
       const id = generateID();
       const newDeck = { id, title: this.state.text, questions: [] };
-      this.setState({deck: newDeck}, this.toHome(newDeck))
+
+      this.setState({ deck: newDeck }, this.toHome(newDeck));
 
       this.props.dispatch(addDeck(newDeck));
 
@@ -43,8 +47,8 @@ class AddDeck extends Component {
     }
   };
 
-  toHome = (deck) => {
-    const { text} = this.state;
+  toHome = deck => {
+    const { text } = this.state;
     const questions = deck.questions;
     const questionLength = questions ? deck.questions.length : 0;
 
@@ -60,8 +64,9 @@ class AddDeck extends Component {
     const { isSubmit } = this.state;
 
     return (
-      <KeyboardAvoidingView  behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Text style={styles.titleText}>Add a new deck to study.</Text>
+
         <TextInput
           ref={input => {
             this.textInput = input;
@@ -75,9 +80,8 @@ class AddDeck extends Component {
           {isSubmit === false ? "This field is required" : ""}
         </Text>
 
-
         <Buttons onPress={this.submitDeck}>Submit</Buttons>
-        </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     );
   }
 }

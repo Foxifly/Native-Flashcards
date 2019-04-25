@@ -3,6 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Buttons from "./Buttons";
 import { blue, white, darkBlue } from "../utils/colors";
 import {connect} from 'react-redux'
+import {
+  clearLocalNotifications,
+  setLocalNotification
+} from '../utils/api'
 
 class DeckZoom extends Component {
   state = {
@@ -16,6 +20,8 @@ class DeckZoom extends Component {
     } else {
       this.setState({ canStart: true });
       this.props.navigation.navigate("Quiz", {stateDeck})
+      clearLocalNotifications()
+      .then(setLocalNotification)
     }
   };
   render() {
