@@ -7,11 +7,11 @@ import {
   TouchableOpacity
 } from "react-native";
 import { blue, white, darkBlue } from "../utils/colors";
-import Buttons from "./Buttons"
-import {addQuestionToDeck} from "../actions";
-import {connect} from 'react-redux'
-import {addCardToDeck} from "../utils/api"
-import { NavigationActions } from 'react-navigation'
+import Buttons from "./Buttons";
+import { addQuestionToDeck } from "../actions";
+import { connect } from "react-redux";
+import { addCardToDeck } from "../utils/api";
+import { NavigationActions } from "react-navigation";
 
 class AddQuestion extends Component {
   state = {
@@ -45,35 +45,31 @@ class AddQuestion extends Component {
       ? this.setState({ isABlank: true })
       : this.setState({ isABlank: false });
 
-    const {stateDeck, stateQuestionLength} = this.props
+    const { stateDeck, stateQuestionLength } = this.props;
     if (question && answer) {
-        this.props.dispatch(addQuestionToDeck(stateDeck.id, question, answer))
-        addCardToDeck(stateDeck, question, answer);
+      this.props.dispatch(addQuestionToDeck(stateDeck.id, question, answer));
+      addCardToDeck(stateDeck, question, answer);
 
-        this.toHome(stateDeck)
+      this.toHome(stateDeck);
     }
-
 
     //navigate to route
   };
 
-  toHome = (deck) => {
+  toHome = deck => {
     const questions = deck.questions;
     const questionLength = questions ? deck.questions.length : 0;
 
     this.props.navigation.dispatch(
       NavigationActions.navigate({
         routeName: "DeckZoom",
-          params: { deck, questionLength }
+        params: { deck, questionLength }
       })
     );
-
-
-
   };
 
   render() {
-      const { stateDeck, stateQuestionLength } = this.props;
+    const { stateDeck, stateQuestionLength } = this.props;
     const { isSubmit, isABlank, isQBlank } = this.state;
     if (stateDeck) {
       return (
@@ -101,20 +97,17 @@ class AddQuestion extends Component {
             {isABlank === true ? "This field is required" : ""}
           </Text>
 
-
-          <Buttons onPress={this.submitDeck}>
-            Submit
-          </Buttons>
-
+          <Buttons onPress={this.submitDeck}>Submit</Buttons>
         </View>
       );
     }
     return (
       <View>
-      <Text>Boooo</Text>
+        <Text>
+          There was an error loading this page. Please try again later.
+        </Text>
       </View>
-    )
-
+    );
   }
 }
 
@@ -146,13 +139,12 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state, {navigation}) {
+function mapStateToProps(state, { navigation }) {
   const { stateDeck, stateQuestionLength } = navigation.state.params;
   return {
     stateDeck,
     stateQuestionLength
-  }
-
+  };
 }
 
 export default connect(mapStateToProps)(AddQuestion);

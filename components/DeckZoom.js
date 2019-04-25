@@ -10,14 +10,12 @@ class DeckZoom extends Component {
   };
 
   startQuiz = () => {
-    const { stateQuestionLength } = this.props;
+    const { stateDeck, stateQuestionLength } = this.props;
     if (stateQuestionLength === 0) {
-      console.log("0")
       this.setState({ canStart: false });
     } else {
-      console.log("true")
       this.setState({ canStart: true });
-      this.props.navigation.navigate("")
+      this.props.navigation.navigate("Quiz", {stateDeck})
     }
   };
   render() {
@@ -90,8 +88,6 @@ function mapStateToProps(state, {navigation}) {
   const stateDeck = state[deck.id];
   const questions = stateDeck.questions;
   const stateQuestionLength = questions ? stateDeck.questions.length : 0;
-  console.log(stateDeck)
-
   return {
     stateDeck,
     stateQuestionLength
